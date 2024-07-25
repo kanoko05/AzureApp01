@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Vuetify Example Pen</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'>
+<link rel='stylesheet' href='https://unpkg.com/@mdi/font@6.x/css/materialdesignicons.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Material+Icons'>
+<link rel='stylesheet' href='https://unpkg.com/vuetify@2.7.1/dist/vuetify.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="app">
+  <v-app id="inspire">
+    <v-carousel v-model="model">
+      <v-carousel-item
+        v-for="(image, i) in images"
+        :key="image"
+      >
+        <v-img
+          :src="images[i]"   
+               
+          height="100%"       
+          tile                
+        >
+          
+           
+          </v-row>
+        </v-img>
+      </v-carousel-item>
+    </v-carousel>
+  <template>
+<v-expansion-panels>
+      <v-expansion-panel v-for="(place, index) in places" :key="index">
+        <v-expansion-panel-header>
+          {{ place.content }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          {{ items[index].content }}
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+</template>
+ 
+
+
+
+  <br>
+  <br>
+   <v-row
+          class="text-h3 mb-3 mt-3"
+          justify="center"
+          >
+          申込書
+        </v-row>
+  <br>
+  <template>
+  <form>
+    <div class="yohaku">
+    <v-text-field
+      v-model="name"
+      :error-messages="nameErrors"
+      :counter="10"
+      label="Name"
+      required
+      @input="$v.name.$touch()"
+      @blur="$v.name.$touch()"
+    ></v-text-field>
+    <v-text-field
+      v-model="email"
+      :error-messages="emailErrors"
+      label="E-mail"
+      required
+      @input="$v.email.$touch()"
+      @blur="$v.email.$touch()"
+    ></v-text-field>
+    <v-select
+  v-model="select"
+  :items="places.map(place => place.content)"
+  :error-messages="selectErrors"
+  label="Item"
+  required
+  @change="$v.select.$touch()"
+  @blur="$v.select.$touch()"
+></v-select>
+
+    <v-checkbox
+      v-model="checkbox"
+      :error-messages="checkboxErrors"
+      label="Do you agree?"
+      required
+      @change="$v.checkbox.$touch()"
+      @blur="$v.checkbox.$touch()"
+    ></v-checkbox>
+
+    <v-btn
+      class="mr-4"
+      @click="submit"
+    >
+      submit
+    </v-btn>
+    <v-btn @click="clear">
+      clear
+    </v-btn>
+    </div>
+  </form>
+</template>
+  <br>
+  <br>
+  <template>
+  <v-footer padless>
+    <v-col
+      class="text-center"
+      cols="12"
+    >
+      {{ new Date().getFullYear() }} — <strong>SaitoKannko</strong>
+    </v-col>
+  </v-footer>
+</template>
+  </v-app>
+</div>
+<!-- partial -->
+  <script src='https://unpkg.com/babel-polyfill/dist/polyfill.min.js'></script>
+<script src='https://unpkg.com/vue@2.x/dist/vue.js'></script>
+<script src='https://unpkg.com/vuetify@2.7.1/dist/vuetify.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
