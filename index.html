@@ -2,128 +2,496 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Vuetify Example Pen</title>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'>
-<link rel='stylesheet' href='https://unpkg.com/@mdi/font@6.x/css/materialdesignicons.min.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Material+Icons'>
-<link rel='stylesheet' href='https://unpkg.com/vuetify@2.7.1/dist/vuetify.min.css'><link rel="stylesheet" href="./style.css">
+  <title>A Pen by kanoko05</title>
+  <link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<div id="app">
-  <v-app id="inspire">
-    <v-carousel v-model="model">
-      <v-carousel-item
-        v-for="(image, i) in images"
-        :key="image"
-      >
-        <v-img
-          :src="images[i]"   
-               
-          height="100%"       
-          tile                
-        >
-          
-           
-          </v-row>
-        </v-img>
-      </v-carousel-item>
-    </v-carousel>
-  <template>
-<v-expansion-panels>
-      <v-expansion-panel v-for="(place, index) in places" :key="index">
-        <v-expansion-panel-header>
-          {{ place.content }}
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          {{ items[index].content }}
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-</template>
- 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaitoKannko</title>
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.min.css" rel="stylesheet">
+  <style>
+    /* カスタムヘッダーのスタイル */
+    .custom-header {
+      background-color: #007bff; /* ヘッダーの背景色 */
+      color: white; /* ヘッダーの文字色 */
+     height:100px;
+      top: 0; /* 上端に配置 */
+      left: 0;
+      width: 100%; /* 全幅を設定 */
+      z-index: 10; /* ヘッダーを他の要素の上に表示 */
+      padding: 50px 20px; /* パディングを設定 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+     .custom-header .header-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
 
+    /* タブ全体のボーダーと背景色 */
+    .v-tabs {
+      border-bottom: 2px solid #ddd;
+      background-color: #f8f9fa;
+      
+    }
+    
+    /* コンテンツセクションの余白を設定 */
+    .v-content {
+      margin-top: 15px; /* ヘッダーの高さ分の余白を設定 */
+    }
 
+    /* タブの文字色とホバー効果 */
+    .v-tab {
+      color: #333 !important;
+      font-weight: bold;
+      font-size: 16px;
+    }
 
-  <br>
-  <br>
-   <v-row
-          class="text-h3 mb-3 mt-3"
-          justify="center"
-          >
-          申込書
+    .v-tab:hover {
+      background-color: #e9ecef;
+    }
+
+    /* アクティブなタブのスタイル */
+    .v-tab--active {
+      color: #fff !important;
+      background-color: #007bff !important;
+    }
+
+    .v-tabs-slider {
+      background-color: #007bff !important;
+      height: 4px !important;
+    }
+
+    /* ボタンのカスタムスタイル（お好みで） */
+    .v-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .v-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* フッターリンクのカスタムスタイル */
+    .v-footer a {
+      color: #007bff;
+    }
+
+    .v-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* 名前検索用のテキストフィールドとボタンを整える */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-container .v-text-field {
+  flex: 1;
+}
+
+.search-container .v-btn {
+  white-space: nowrap;
+}
+    
+    /* 名前入力フィールドを小さくする */
+.search-text-field {
+  max-width: 300px; /* 最大幅を指定（例: 300px） */
+  width: 100%; /* 幅を100%に設定して親要素の幅に合わせる */
+}
+/* 名前検索用のテキストフィールドとボタンの左に余白を追加 */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.search-container .v-text-field {
+  max-width: 300px;
+  width: 100%;
+}
+
+.search-container .v-btn {
+  white-space: nowrap;
+}
+
+.search-container .left-margin {
+  margin-left: 40px; /* 左側に余白を追加（例: 20px） */
+}
+
+ /* おしゃれなメッセージカードのスタイル */
+    .message-card {
+      background: #f8f9fa; /* 背景色 */
+      border-radius: 10px; /* 角を丸める */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽いシャドウ */
+      padding: 20px; /* 内側の余白 */
+      text-align: center; /* 中央揃え */
+      margin: 20px; /* 外側の余白 */
+    }
+
+    .message-card h3 {
+      color: #007bff; /* タイトルの文字色 */
+      font-size: 28px; /* フォントサイズ */
+      margin-bottom: 10px; /* タイトル下の余白 */
+    }
+
+    .message-card p {
+      color: #333; /* 本文の文字色 */
+      font-size: 18px; /* フォントサイズ */
+    }
+    
+    /* グレーカラーのボタンスタイル */
+  .v-btn--grey {
+    background-color: #6c757d; /* グレーの背景色 */
+    color: white; /* 文字色を白に設定 */
+  }
+    
+     .v-btn--grey:hover {
+    background-color: #5a6268; /* ホバー時のグレーの背景色 */
+  }
+    
+    
+  </style>
+</head>
+<body>
+  <div id="app">
+    <v-app id="inspire">
+   <!-- カスタムヘッダー -->
+      <header class="custom-header">
+        <div class="header-title">SaitoKannko</div>
+      </header>
+
+      <!-- コンテンツセクション -->
+      <v-content>
+  <!-- タブコンポーネント -->
+  <v-tabs v-model="tab">
+    <v-tab>ホーム</v-tab>
+    <v-tab>マイページ</v-tab>
+     <v-tab>メッセージ</v-tab>
+  </v-tabs>
+
+  <v-tabs-items v-model="tab">
+    <!-- ホームタブの内容 -->
+    <v-tab-item>
+      <v-container fluid>
+        <!-- カルーセルセクション -->
+        <v-row>
+          <v-col>
+            <v-carousel v-model="model" hide-delimiters>
+              <v-carousel-item
+                v-for="(image, i) in images"
+                :key="i"
+              >
+                <v-img
+                  :src="image"   
+                  height="500px"       
+                  contain                
+                ></v-img>
+              </v-carousel-item>
+            </v-carousel>
+          </v-col>
         </v-row>
-  <br>
-  <template>
-  <form>
-    <div class="yohaku">
-    <v-text-field
-      v-model="name"
-      :error-messages="nameErrors"
-      :counter="10"
-      label="Name"
-      required
-      @input="$v.name.$touch()"
-      @blur="$v.name.$touch()"
-    ></v-text-field>
-    <v-text-field
-      v-model="email"
-      :error-messages="emailErrors"
-      label="E-mail"
-      required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
-    ></v-text-field>
-    <v-select
-  v-model="select"
-  :items="places.map(place => place.content)"
-  :error-messages="selectErrors"
-  label="Item"
-  required
-  @change="$v.select.$touch()"
-  @blur="$v.select.$touch()"
-></v-select>
 
-    <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-    ></v-checkbox>
+        <!-- 展開パネルセクション -->
+        <v-row>
+          <v-col>
+            <v-expansion-panels>
+              <v-expansion-panel
+                v-for="(place, index) in places"
+                :key="index"
+              >
+                <v-expansion-panel-header>
+                  {{ place.planitem }}
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <p>{{ place.contents }}</p>
+                  <p><strong>価格:</strong> {{ place.price }}円</p>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-col>
+        </v-row>
 
-    <v-btn
-      class="mr-4"
-      @click="submit"
-    >
-      submit
-    </v-btn>
-    <v-btn @click="clear">
-      clear
-    </v-btn>
-    </div>
-  </form>
-</template>
-  <br>
-  <br>
-  <template>
+        <br><br>
+
+        <!-- 申込フォームセクション -->
+        <v-row class="text-h3 mb-3 mt-3" justify="center">
+          ツアー申込書
+        </v-row>
+        <br>
+        <form @submit.prevent="submitForm">
+          <div class="yohaku">
+            <v-text-field
+              v-model="Name"
+              :error-messages="nameErrors"
+              :counter="15"
+              label="名前"
+              required
+              @input="$v.Name.$touch()"
+              @blur="$v.Name.$touch()"
+            ></v-text-field>
+            <v-text-field
+              v-model="Email"
+              :error-messages="emailErrors"
+              label="E-mail"
+              required
+              @input="$v.Email.$touch()"
+              @blur="$v.Email.$touch()"
+            ></v-text-field>
+            <v-select
+              v-model="Planid"
+              :items="places.map(place => place.planitem)"
+              label="旅行先"
+              required
+              @change="expandPanel"
+            ></v-select>
+
+            <!-- フォームで選択したプランの詳細を表示 -->
+            <v-card v-if="selectedDetails.planitem">
+              <v-card-title>旅行プランの詳細</v-card-title>
+              <v-card-text>
+                <p>{{ selectedDetails.contents }}</p>
+                <p><strong>価格:</strong> {{ selectedDetails.price }}円</p>
+              </v-card-text>
+            </v-card>
+
+            <v-checkbox
+              v-model="checkbox"
+              :error-messages="checkboxErrors"
+              label="同意しますか？"
+              required
+              @change="$v.checkbox.$touch()"
+              @blur="$v.checkbox.$touch()"
+            ></v-checkbox>
+            <v-btn class="mr-4" type="submit">申し込み</v-btn>
+            <v-btn @click="clear">削除</v-btn>
+          </div>
+        </form>
+
+        <!-- スナックバー通知 -->
+        <v-snackbar v-model="snackbar" timeout="3000">
+          お申込みありがとうございます
+          <v-btn color="red" text @click="snackbar = false">Close</v-btn>
+        </v-snackbar>
+      </v-container>
+    </v-tab-item>
+
+    <!-- マイページタブの内容 -->
+    <v-tab-item>
+      <v-container fluid>
+        <v-row>
+          <v-col>
+            <h3>あなたの申し込んだツアー一覧</h3>
+           <!-- 名前検索用のテキストフィールドとボタン -->
+<v-row class="search-container">
+  <v-text-field
+    v-model="searchName"
+    label="名前で検索"
+    class="search-text-field"
+    @keyup.enter="searchByName"
+  ></v-text-field>
+  <v-btn class="v-btn--grey"@click="searchByName">検索</v-btn>
+</v-row>
+
+
+
+            <!-- データテーブルで申し込んだツアーの詳細を表示 -->
+            <v-data-table
+              :headers="headers"
+              :items="filteredBookings"
+              item-key="plan_id"
+            >
+              <template v-slot:top>
+                <v-toolbar flat>
+                  <v-toolbar-title>一覧</v-toolbar-title>
+                </v-toolbar>
+              </template>
+
+              <template v-slot:item.email="{ item }">
+                <td>{{ item.email }}</td>
+              </template>
+
+              <template v-slot:item.planitem="{ item }">
+                <td>{{ item.planitem }}</td>
+              </template>
+
+              <template v-slot:item.contents="{ item }">
+                <td>{{ item.contents }}</td>
+              </template>
+
+              <template v-slot:item.price="{ item }">
+                <td>{{ item.price }}円</td>
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-tab-item>
+
+
+        <!-- メッセージタブの内容 -->
+          <v-tab-item>
+            <v-container fluid>
+              <v-row justify="center">
+                <v-col cols="12" md="8">
+                  <v-card class="message-card">
+                    <v-card-title>
+                      <h3>旅行をお楽しみください！</h3>
+                    </v-card-title>
+                    <v-card-text>
+                      <p>素晴らしい旅行体験をお届けするために、お手伝いいたします。お気軽にお問い合わせください。</p>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+         </v-tabs-items>
+      
+      
+  <!-- フッターセクション -->
   <v-footer padless>
-    <v-col
-      class="text-center"
-      cols="12"
-    >
-      {{ new Date().getFullYear() }} — <strong>SaitoKannko</strong>
+    <v-col class="text-center" cols="12">
+      <div>〒123-4567 東京都〇〇町1-2-3</div>
+      <div>電話: 012-3456-7890</div>
+      <div><a href="https://twitter.com/yourcompany" target="_blank">Twitter</a> | <a href="https://facebook.com/yourcompany" target="_blank">Facebook</a></div>
+      <div>{{ new Date().getFullYear() }} — <strong>SaitoKanko</strong></div>
     </v-col>
   </v-footer>
-</template>
-  </v-app>
-</div>
-<!-- partial -->
-  <script src='https://unpkg.com/babel-polyfill/dist/polyfill.min.js'></script>
-<script src='https://unpkg.com/vue@2.x/dist/vue.js'></script>
-<script src='https://unpkg.com/vuetify@2.7.1/dist/vuetify.min.js'></script><script  src="./script.js"></script>
+</v-app>
 
+
+ 
+  
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.6.14/dist/vuetify.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      data: () => ({
+        tab: 0,
+        model: 0,
+        Name: '',
+        Email: '',
+        Planid: '',
+        checkbox: false,
+        nameErrors: [],
+        emailErrors: [],
+        checkboxErrors: [],
+        snackbar: false, // 申込み完了メッセージ表示用の状態
+        places: [],
+        filteredBookings: [], // フィルタリングされた予約データ
+ 　　　 searchName: '', // 名前検索用のデータ
+        images: [
+          'https://i.gyazo.com/8309d3a9305278c73c181e3612fb520c.jpg',
+          'https://i.gyazo.com/b0f16b3b3296858000b57dbc5f333415.jpg',
+          'https://i.gyazo.com/d81a66187af82f3f4eba61250a803392.jpg',
+          'https://i.gyazo.com/fa3f56ef328e7bea421b6a17c36a454a.jpg',
+          'https://i.gyazo.com/3136000a3c1cf2d84c53efda41670b14.jpg'
+        ],
+         headers: [
+      { text: 'Name', value: 'name' },
+      { text: 'Email', value: 'email' },
+      { text: '旅行先', value: 'planitem' },
+      { text: '詳細', value: 'contents' },
+      { text: '価格', value: 'price' },
+    ],
+      }),
+      computed: {
+        selectedDetails() {
+          return this.places.find(place => place.planitem === this.Planid) || {};
+        }
+      },
+      created() {
+        this.fetchPlanItems();
+        
+      },
+      methods: {
+        async fetchPlanItems() {
+          try {
+            const response = await axios.get('https://m3h-saito-functionapi.azurewebsites.net/api/SELECT');
+            console.log("Fetched data:", response.data);
+            this.places = response.data.List;
+          } catch (error) {
+            console.error("Error fetching plan items:", error);
+          }
+        },
+        
+        
+    
+        
+        async searchByName() {
+          try {
+            const response = await axios.post('https://m3h-saito-functionapi.azurewebsites.net/api/ExecuteFunction', { name: this.searchName });
+            console.log("Search results:", response.data);
+            // 検索結果から名前が一致するデータをフィルタリング
+            this.filteredBookings = response.data.List.filter(booking => booking.name === this.searchName);
+          } catch (error) {
+            console.error("Error searching by name:", error);
+            this.filteredBookings = []; // エラーが発生した場合は結果をクリア
+          }
+        },   
+       
+        
+        
+        
+        
+        async submitForm() {
+          this.submit();
+          this.snackbar = true;
+          
+        },
+          
+          
+        async submit() {
+          try {
+            const selectedPlan = this.places.find(place => place.planitem === this.Planid);
+            const param = {
+              Name: this.Name,
+              Email: this.Email,
+              Planid: selectedPlan ? selectedPlan.plan_id : null
+            };
+
+            const response = await axios.post('https://m3h-saito-functionapi.azurewebsites.net/api/INSERT', param);
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        },
+          
+          
+        clear() {
+          this.Name = '';
+          this.Email = '';
+          this.Planid = '';
+          this.checkbox = false;
+        }
+        
+        
+        
+        
+      }
+    });
+  </script>
+</body>
+</html>
+<!-- partial -->
+  
 </body>
 </html>

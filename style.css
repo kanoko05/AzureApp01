@@ -1,3 +1,60 @@
-.yohaku {
-  margin:0 40px 0 40px;
+/* タブのスタイル */
+.nav-tabs {
+    border-bottom: 2px solid #ddd;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px 15px;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #f8f9fa;
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #ddd #ddd #fff;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #e9ecef;
+    border-color: #ddd #ddd #e9ecef;
+}
+
+/* ホバー時の効果 */
+.nav-tabs .nav-link:hover {
+    color: #333;
+    background-color: #e9ecef;
+    border-color: #ddd;
+}
+
+/* ボーダーのスタイル */
+.nav-tabs .nav-link.active::after {
+    content: '';
+    display: block;
+    border-bottom: 4px solid #007bff;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+}
+
+/* その他のスタイル調整 */
+.nav-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.nav-item {
+    list-style: none;
+    margin-right: 10px;
 }
