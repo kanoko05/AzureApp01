@@ -1,33 +1,107 @@
 new Vue({
-  el: '#app',
-  vuetify: new Vuetify(),
-  data: () => ({
-    model: 0,
-
-    images: [
-    'https://i.gyazo.com/8309d3a9305278c73c181e3612fb520c.jpg',
-    'https://i.gyazo.com/b0f16b3b3296858000b57dbc5f333415.jpg',
-    'https://i.gyazo.com/d81a66187af82f3f4eba61250a803392.jpg',
-    'https://i.gyazo.com/fa3f56ef328e7bea421b6a17c36a454a.jpg',
-    'https://i.gyazo.com/3136000a3c1cf2d84c53efda41670b14.jpg'],
-
-
-    items: [
-    { content: "　モンサンミッシェルは、フランス北西部の魔法に満ちた小さな島です。潮の満ち引きによって陸続きと切り離されるこの島は、中世の美しさが今も息づいています。迷路のような狭い通りや古代の修道院が、幻想的な景観を彩ります。夕日が島を染め上げる光景は、心に深い感動を与えることでしょう。" },
-    { content: "オーロラは、まるで神秘の舞台から舞い降りたかのような光景です。極地の夜空に広がる彩り豊かな輝きは、言葉を超えた美しさで心を奪います。幻想的なグリーンやピンクの光がダンスするその姿は、一度見たら忘れられない感動を与えてくれるでしょう。" },
-    { content: "タージマハルは、愛の証として建てられた壮大な白い大理石の宮殿です。その美しさは、細部に至るまでの芸術的な精緻さと、穏やかな川のほとりに映る鏡のような姿が特徴です。夕暮れ時には、太陽が柔らかなオレンジ色に染めた空に浮かぶ様子は、深い感動を呼び起こします。" },
-
-    { content: "マリーナベイサンズは、シンガポールの象徴的なランドマークであり、高層ビル、豪華なショッピングモール、世界最大の屋上プールを備えたリゾートです。そのスカイパークからの眺めは息をのむ美しさで、都市の息吹と静寂が融合する場所です。" },
-    { content: "ピラミッドは、人類の歴史と謎に包まれた巨大な石の構造物です。その壮大な姿と精巧な建築技術は、古代エジプトの知恵と力の象徴です。砂漠の広がる中でその姿がそびえ立ち、太陽の光を浴びる様子は、神秘的で魅惑的な魅力を持っています。" }
-    // Add more items as needed
+      el: '#app',
+      vuetify: new Vuetify(),
+      data: () => ({
+        tab: 0,
+        model: 0,
+        Name: '',
+        Email: '',
+        Planid: '',
+        checkbox: false,
+        nameErrors: [],
+        emailErrors: [],
+        checkboxErrors: [],
+        snackbar: false, // 申込み完了メッセージ表示用の状態
+        places: [],
+        filteredBookings: [], // フィルタリングされた予約データ
+ 　　　 searchName: '', // 名前検索用のデータ
+        images: [
+          'https://i.gyazo.com/8309d3a9305278c73c181e3612fb520c.jpg',
+          'https://i.gyazo.com/b0f16b3b3296858000b57dbc5f333415.jpg',
+          'https://i.gyazo.com/d81a66187af82f3f4eba61250a803392.jpg',
+          'https://i.gyazo.com/fa3f56ef328e7bea421b6a17c36a454a.jpg',
+          'https://i.gyazo.com/3136000a3c1cf2d84c53efda41670b14.jpg'
+        ],
+         headers: [
+      { text: 'Name', value: 'name' },
+      { text: 'Email', value: 'email' },
+      { text: '旅行先', value: 'planitem' },
+      { text: '詳細', value: 'contents' },
+      { text: '価格', value: 'price' },
     ],
+      }),
+      computed: {
+        selectedDetails() {
+          return this.places.find(place => place.planitem === this.Planid) || {};
+        }
+      },
+      created() {
+        this.fetchPlanItems();
+        
+      },
+      methods: {
+        async fetchPlanItems() {
+          try {
+            const response = await axios.get('https://m3h-saito-functionapi.azurewebsites.net/api/SELECT');
+            console.log("Fetched data:", response.data);
+            this.places = response.data.List;
+          } catch (error) {
+            console.error("Error fetching plan items:", error);
+          }
+        },
+        
+        
+    
+        
+        async searchByName() {
+          try {
+            const response = await axios.post('https://m3h-saito-functionapi.azurewebsites.net/api/ExecuteFunction', { name: this.searchName });
+            console.log("Search results:", response.data);
+            // 検索結果から名前が一致するデータをフィルタリング
+            this.filteredBookings = response.data.List.filter(booking => booking.name === this.searchName);
+          } catch (error) {
+            console.error("Error searching by name:", error);
+            this.filteredBookings = []; // エラーが発生した場合は結果をクリア
+          }
+        },   
+       
+        
+        
+        
+        
+        async submitForm() {
+          this.submit();
+          this.snackbar = true;
+          
+        },
+          
+          
+        async submit() {
+          try {
+            const selectedPlan = this.places.find(place => place.planitem === this.Planid);
+            const param = {
+              Name: this.Name,
+              Email: this.Email,
+              Planid: selectedPlan ? selectedPlan.plan_id : null
+            };
 
-    places: [
-    { content: "モン・サン・ミッシェル（フランス）　" },
-    { content: "オーロラ（アイスランド）" },
-    { content: "タージマハル（インド）" },
-
-    { content: "マリーナベイサンズ（シンガポール）" },
-    { content: "ピラミッド（エジプト）" }
-    // Add more items as needed
-    ] }) });
+            const response = await axios.post('https://m3h-saito-functionapi.azurewebsites.net/api/INSERT', param);
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        },
+          
+          
+        clear() {
+          this.Name = '';
+          this.Email = '';
+          this.Planid = '';
+          this.checkbox = false;
+        }
+        
+        
+        
+        
+      }
+    });
