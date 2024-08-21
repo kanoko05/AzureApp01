@@ -2,7 +2,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title> A Pen by kanoko05</title>
+  <title>A Pen by kanoko05</title>
   <link rel="stylesheet" href="./style.css">
 
 </head>
@@ -251,13 +251,13 @@
               @input="$v.Email.$touch()"
               @blur="$v.Email.$touch()"
             ></v-text-field>
-            <v-select
-              v-model="Planid"
-              :items="places.map(place => place.planitem)"
-              label="旅行先"
-              required
-              @change="expandPanel"
-            ></v-select>
+           <v-select
+  v-model="Planid"
+  :items="places.map(place => place.planitem)"
+  label="旅行先"
+  required
+></v-select>
+
 
             <!-- フォームで選択したプランの詳細を表示 -->
             <v-card v-if="selectedDetails.planitem">
@@ -267,16 +267,14 @@
                 <p><strong>価格:</strong> {{ selectedDetails.price }}円</p>
               </v-card-text>
             </v-card>
+　　　　　　　<v-checkbox
+  v-model="checkbox"
+  :error-messages="checkboxErrors"
+  label="同意しますか？"
+  required
+></v-checkbox>
 
-            <v-checkbox
-              v-model="checkbox"
-              :error-messages="checkboxErrors"
-              label="同意しますか？"
-              required
-              @change="$v.checkbox.$touch()"
-              @blur="$v.checkbox.$touch()"
-            ></v-checkbox>
-            <v-btn class="mr-4" type="submit">申し込み</v-btn>
+                       <v-btn class="mr-4" type="submit">申し込み</v-btn>
             <v-btn @click="clear">削除</v-btn>
           </div>
         </form>
